@@ -15,7 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import SimpleRouter
+
+from sales_accounting.views.view_category_product import CategoryProductViewSet
+from sales_accounting.views.view_product import ProductViewSet
+from sales_accounting.views.view_shop import ShopViewSet
+from sales_accounting.views.view_warehose import WarehouseViewSet
+
+
+router = SimpleRouter()
+router.register('api/category', CategoryProductViewSet)
+router.register('api/product', ProductViewSet)
+router.register('api/warehouse', WarehouseViewSet)
+router.register('api/shop', ShopViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += router.urls
