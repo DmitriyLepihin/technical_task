@@ -23,9 +23,9 @@ with open('config.json', 'r') as file:
     SECRET_KEY = json.load(file)['key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['DmitriyLepihin1991.pythonanywhere.com']
 
 # Application definition
 
