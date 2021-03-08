@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from sales_accounting.models import CategoryProduct, Product, Warehouse, Shop, SalesAccounting
@@ -31,3 +33,13 @@ class SalesAccountingSerializer(ModelSerializer):
     class Meta:
         model = SalesAccounting
         fields = '__all__'
+
+
+class TokenSerializer(serializers.Serializer):
+    token = serializers.CharField(max_length=255)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username", "email", "password")

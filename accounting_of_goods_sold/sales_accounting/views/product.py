@@ -17,36 +17,6 @@ class ProductViewSet(ModelViewSet):
     search_fields = ['category_product_id']
     ordering_fields = ['pk', 'name_category', 'category_product_id']
 
-    def list(self, request):
-        if request.query_params.get('search'):
-            self.queryset = self.queryset.filter(category_product_id_id=request.query_params.get('search'))
-            if self.queryset:
-                return JsonResponse(data=list(self.queryset.values()), status=HTTP_200_OK,
-                                    safe=False)
-            else:
-                return JsonResponse(data={'search': request.query_params.get('search')},
-                                    status=HTTP_404_NOT_FOUND,
-                                    safe=False)
-        elif request.query_params.get('ordering'):
-            self.queryset = self.queryset.order_by(request.query_params.get('ordering'))
-            if self.queryset:
-                return JsonResponse(data=list(self.queryset.values()), status=HTTP_200_OK, safe=False)
-            else:
-                return JsonResponse(data={'ordering': request.query_params.get('ordering')},
-                                    status=HTTP_404_NOT_FOUND,
-                                    safe=False)
-        elif request.query_params.get('name_product'):
-            self.queryset = self.queryset.filter(name_product=request.query_params.get('name_product'))
-            if self.queryset:
-                return JsonResponse(data=list(self.queryset.values()), status=HTTP_200_OK, safe=False)
-            else:
-                return JsonResponse(data={'name_product': request.query_params.get('name_product')},
-                                    status=HTTP_404_NOT_FOUND,
-                                    safe=False)
-        else:
-            serializer = self.serializer_class(self.queryset, many=True)
-            return JsonResponse(serializer.data, status=HTTP_200_OK, safe=False)
-
     def create(self, request, *args, **kwargs):
         id_category = request.data['category_product_id']
         name_product = request.data['name_product']
