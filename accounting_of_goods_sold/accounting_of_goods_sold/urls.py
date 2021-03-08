@@ -15,7 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import SimpleRouter
+
+from sales_accounting.views.register import LoginView, RegisterUsers
+from sales_accounting.views.category_product import CategoryProductViewSet
+from sales_accounting.views.product import ProductViewSet
+from sales_accounting.views.shop import ShopViewSet
+from sales_accounting.views.warehouse import WarehouseViewSet
+
+router = SimpleRouter()
+router.register('api/category', CategoryProductViewSet)
+router.register('api/product', ProductViewSet)
+router.register('api/warehouse', WarehouseViewSet)
+router.register('api/shop', ShopViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/login/', LoginView.as_view(), name="auth-login"),
+    path('auth/register/', RegisterUsers.as_view(), name="auth-register")
+
 ]
+
+urlpatterns += router.urls
